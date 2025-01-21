@@ -9,13 +9,15 @@
         }
         .heading-line{
             background-color:khaki;
+            padding: 0.5%;
         }
 
         .link-section{
             padding-top: 50px;
-            padding-left: 5%;
             padding-bottom: 100%;
             color: aliceblue;
+            padding: 10%;
+            padding-top: 5%;
         }
         
         #clg-grid{
@@ -44,20 +46,22 @@
             color: midnightblue;
         }
         @media (max-width: 600px) {
-            #clg-grid{
+            .heading-line{
+                text-align: end;
+                font-weight: bold;
+            }
                 #links{
                     width: 150px;
                     height: 150px;
-                    position: relative;
                 }
                 img{
                     width: 100px;
                     height: 100px;
                 }
-            }
+            
 
             .link-section{
-                display: flex;
+            display: flex;
             flex-direction: column;
             align-items: center;
             height: 100vh; /* Full viewport height for centering */
