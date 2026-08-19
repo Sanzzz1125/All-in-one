@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>College Hub</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#c1502e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3e9d2;
+    --bg-dot: rgba(43,31,22,0.04);
+    --card:#fffaf0;
+    --ink:#2b1f16;
+    --ink-soft:#6b5c48;
+    --line:#2b1f16;
+    --mustard:#e8a33d;
+    --rust:#c1502e;
+    --teal:#2a6f6f;
+    --shadow-color:#2b1f16;
+  }
+  html[data-theme="dark"]{
+    --bg:#1c1410;
+    --bg-dot: rgba(240,230,210,0.035);
+    --card:#241a13;
+    --ink:#f0e6d2;
+    --ink-soft:#bba98d;
+    --line:#f0e6d2;
+    --mustard:#f0b64d;
+    --rust:#e0673f;
+    --teal:#4bb3ac;
+    --shadow-color:#000000;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(var(--bg-dot) 1.5px, transparent 1.5px) 0 0/22px 22px,
+      var(--bg);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:70px;
+    transition:background .25s ease, color .25s ease;
+  }
+  a{color:inherit; text-decoration:none;}
+  :focus-visible{outline:3px solid var(--rust); outline-offset:3px;}
+
+  /* ===== TOP BAR ===== */
+  .topbar{
+    max-width:900px;
+    margin:0 auto;
+    padding:22px 24px 0;
+    display:flex;
+    justify-content:flex-end;
+  }
+  .theme-toggle{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:999px;
+    padding:6px 14px 6px 6px;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .theme-toggle .knob{
+    width:20px; height:20px;
+    border-radius:50%;
+    background:var(--mustard);
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px;
+  }
+
+  /* ===== LOGO / HEADER ===== */
+  .hero{
+    max-width:900px;
+    margin:0 auto;
+    padding:18px 24px 10px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    position:relative;
+  }
+
+  .logo-badge{
+    position:relative;
+    z-index:1;
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    background:var(--rust);
+    color:#fff8ea;
+    border-radius:16px;
+    padding:16px 28px 14px;
+    margin-top:18px;
+  }
+  .logo-badge .line1{
+    font-family:'Bungee', cursive;
+    font-size:clamp(26px, 7vw, 40px);
+    letter-spacing:0.02em;
+    line-height:1;
+  }
+  .logo-badge .line2{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--mustard);
+    margin-top:4px;
+  }
+
+  .tagline{
+    margin:22px 0 0;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    max-width:420px;
+  }
+
+  /* ===== SEARCH ===== */
+  .search-wrap{
+    max-width:900px;
+    margin:26px auto 0;
+    padding:0 24px;
+  }
+  .search-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:12px 16px;
+  }
+  .search-box svg{ flex:none; color:var(--ink-soft); }
+  .search-box input{
+    flex:1;
+    border:none;
+    outline:none;
+    background:none;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:14.5px;
+    color:var(--ink);
+  }
+  .search-box input::placeholder{ color:var(--ink-soft); opacity:0.7; }
+
+  /* ===== SECTIONS ===== */
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .section-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:42px 0 16px;
+  }
+  .section-title h2{
+    font-family:'Bungee', cursive;
+    font-weight:400;
+    font-size:16px;
+    margin:0;
+    color:var(--teal);
+  }
+  .section-title .rule{
+    flex:1;
+    height:1.5px;
+    background:var(--line);
+    opacity:0.18;
+  }
+  .section-title span.count{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
+    gap:18px;
+  }
+
+  .card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:16px;
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .card:hover, .card:focus-visible{
+    transform:translateY(-3px);
+    border-color:var(--rust);
+  }
+
+  .card[data-desc]::after{
+    content:attr(data-desc);
+    position:absolute;
+    left:50%;
+    bottom:calc(100% + 10px);
+    transform:translateX(-50%) translateY(4px);
+    background:var(--ink);
+    color:var(--bg);
+    font-family:'Space Grotesk', sans-serif;
+    font-size:11.5px;
+    line-height:1.35;
+    font-weight:500;
+    padding:8px 11px;
+    border-radius:8px;
+    width:max-content;
+    max-width:190px;
+    text-align:left;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .15s ease, transform .15s ease;
+    z-index:5;
+  }
+  .card[data-desc]::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:calc(100% + 4px);
+    transform:translateX(-50%);
+    border:6px solid transparent;
+    border-top-color:var(--ink);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .15s ease;
+    z-index:5;
+  }
+  .card[data-desc]:hover::after,
+  .card[data-desc]:hover::before,
+  .card[data-desc]:focus-visible::after,
+  .card[data-desc]:focus-visible::before{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(-50%) translateY(0);
+  }
+
+  .icon{
+    width:42px; height:42px;
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--mustard);
+    color:var(--ink);
+    font-family:'Bungee', cursive;
+    font-size:13px;
+    overflow:hidden;
+  }
+  .icon img{ width:100%; height:100%; object-fit:cover; }
+
+  .card-name{
+    font-size:15px;
+    font-weight:700;
+    line-height:1.2;
+  }
+  .card-url{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    word-break:break-all;
+  }
+
+  .card.hidden{ display:none; }
+  .section.hidden{ display:none; }
+
+  footer{
+    max-width:900px;
+    margin:56px auto 0;
+    padding:20px 24px 0;
+    border-top:3px dashed var(--line);
+    opacity:0.7;
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:600px){
+    .grid{grid-template-columns:repeat(auto-fill, minmax(130px, 1fr)); gap:12px;}
+    .logo-badge{padding:14px 22px 12px;}
+    .sunburst{width:220px; height:220px; top:-10px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <span class="knob" id="themeIcon">☀</span>
+      <span id="themeLabel">Light</span>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div class="logo-badge">
+      <span class="line1">COLLEGE HUB</span>
+      <span class="line2">Student Edition</span>
+    </div>
+    <p class="tagline">Every college portal and tool, one tap away.</p>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="filterInput" type="text" placeholder="Search a portal or tool…" autocomplete="off">
+    </div>
+  </div>
+
+  <main>
+
+    <div class="section" id="collegeSection">
+      <div class="section-title">
+        <h2>College Portals</h2>
+        <div class="rule"></div>
+        <span class="count">7 links</span>
+      </div>
+      <div class="grid">
+
+        <a class="card" data-name="sraap" data-desc="Attendance & academic records portal" href="https://sraap.in/slogin.php" target="_blank" rel="noopener">
+          <span class="icon"><img src="./images/sru_logo.png" alt=""></span>
+          <span class="card-name">Sraap</span>
+          <span class="card-url">sraap.in</span>
+        </a>
+
+        <a class="card" data-name="sruniv" data-desc="University home portal" href="https://sruniv.com/" target="_blank" rel="noopener">
+          <span class="icon"><img src="./images/sru_logo.png" alt=""></span>
+          <span class="card-name">Sruniv</span>
+          <span class="card-url">sruniv.com</span>
+        </a>
+
+        <a class="card" data-name="canvas" data-desc="Course materials, assignments & grades" href="https://canvas.instructure.com/login/canvas" target="_blank" rel="noopener">
+          <span class="icon"><img src="./images/canvas logo.jpg" alt=""></span>
+          <span class="card-name">Canvas</span>
+          <span class="card-url">canvas.instructure.com</span>
+        </a>
+
+        <a class="card" data-name="gdb onlinegdb classroom" data-desc="Online IDE for coding assignments" href="https://www.onlinegdb.com/classroom" target="_blank" rel="noopener">
+          <span class="icon"><img src="./images/gdb logo.jpg" alt=""></span>
+          <span class="card-name">GDB</span>
+          <span class="card-url">onlinegdb.com</span>
+        </a>
+
+        <a class="card" data-name="webminal" data-desc="Linux terminal practice sandbox" href="https://webminal.org/" target="_blank" rel="noopener">
+          <span class="icon">W</span>
+          <span class="card-name">Webminal</span>
+          <span class="card-url">webminal.org</span>
+        </a>
+
+        <a class="card" data-name="timetable" data-desc="Class schedule by batch" href="https://timetable.sruniv.com/batchReport" target="_blank" rel="noopener">
+          <span class="icon"><img src="./images/sru_logo.png" alt=""></span>
+          <span class="card-name">Timetable</span>
+          <span class="card-url">timetable.sruniv.com</span>
+        </a>
+
+        <a class="card" data-name="google classroom" data-desc="Assignments & class announcements" href="https://classroom.google.com/u/1/h" target="_blank" rel="noopener">
+          <span class="icon">GC</span>
+          <span class="card-name">Classroom</span>
+          <span class="card-url">classroom.google.com</span>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="section" id="toolsSection">
+      <div class="section-title">
+        <h2>Quick Tools</h2>
+        <div class="rule"></div>
+        <span class="count">2 links</span>
+      </div>
+      <div class="grid">
+
+        <a class="card" data-name="timetable clear" data-desc="Cleaner view of your class timetable" href="https://clean-timetable.lovable.app/" target="_blank" rel="noopener">
+          <span class="icon">TT</span>
+          <span class="card-name">Timetable Clear</span>
+          <span class="card-url">clean-timetable.lovable.app</span>
+        </a>
+
+        <a class="card" data-name="empty classroom check" data-desc="Find free classrooms right now" href="https://empty-class-rooms.vercel.app/" target="_blank" rel="noopener">
+          <span class="icon">EC</span>
+          <span class="card-name">Empty Classroom</span>
+          <span class="card-url">empty-class-rooms.vercel.app</span>
+        </a>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer>College Hub — built for quick logins</footer>
+
+  <script>
+    // theme toggle
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const icon = document.getElementById('themeIcon');
+    const label = document.getElementById('themeLabel');
+
+    function applyTheme(theme){
+      root.setAttribute('data-theme', theme);
+      icon.textContent = theme === 'dark' ? '☾' : '☀';
+      label.textContent = theme === 'dark' ? 'Dark' : 'Light';
+      try { localStorage.setItem('college-hub-theme', theme); } catch(e) {}
+    }
+
+    let saved = 'light';
+    try { saved = localStorage.getItem('college-hub-theme') || 'light'; } catch(e) {}
+    applyTheme(saved);
+
+    toggle.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+
+    // search filter
+    const input = document.getElementById('filterInput');
+    const cards = Array.from(document.querySelectorAll('.card'));
+    const sections = Array.from(document.querySelectorAll('.section'));
+
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      cards.forEach(c => c.classList.toggle('hidden', !c.dataset.name.includes(q)));
+      sections.forEach(s => {
+        const visible = s.querySelectorAll('.card:not(.hidden)').length;
+        s.classList.toggle('hidden', q && visible === 0);
+      });
+    });
+  </script>
+
+</body>
+</html>
