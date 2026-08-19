@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All In One</title>
+<title>College Hub</title>
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,7 @@
 <style>
   :root{
     --bg:#f3e9d2;
-    --bg-dot: rgba(43,31,22,0.07);
+    --bg-dot: rgba(43,31,22,0.04);
     --card:#fffaf0;
     --ink:#2b1f16;
     --ink-soft:#6b5c48;
@@ -23,7 +23,7 @@
   }
   html[data-theme="dark"]{
     --bg:#1c1410;
-    --bg-dot: rgba(240,230,210,0.06);
+    --bg-dot: rgba(240,230,210,0.035);
     --card:#241a13;
     --ink:#f0e6d2;
     --ink-soft:#bba98d;
@@ -62,7 +62,7 @@
     align-items:center;
     gap:8px;
     background:var(--card);
-    border:2.5px solid var(--line);
+    border:1.5px solid var(--line);
     border-radius:999px;
     padding:6px 14px 6px 6px;
     font-family:'Space Mono', monospace;
@@ -70,16 +70,14 @@
     letter-spacing:0.05em;
     text-transform:uppercase;
     cursor:pointer;
-    box-shadow:3px 3px 0 var(--shadow-color);
     color:var(--ink);
   }
   .theme-toggle .knob{
-    width:22px; height:22px;
+    width:20px; height:20px;
     border-radius:50%;
     background:var(--mustard);
-    border:2px solid var(--line);
     display:flex; align-items:center; justify-content:center;
-    font-size:12px;
+    font-size:11px;
   }
 
   /* ===== LOGO / HEADER ===== */
@@ -94,15 +92,6 @@
     position:relative;
   }
 
-  .sunburst{
-    position:absolute;
-    top:-30px;
-    width:280px; height:280px;
-    z-index:0;
-    opacity:0.55;
-    pointer-events:none;
-  }
-
   .logo-badge{
     position:relative;
     z-index:1;
@@ -112,11 +101,8 @@
     gap:2px;
     background:var(--rust);
     color:#fff8ea;
-    border:3px solid var(--line);
-    border-radius:18px;
-    padding:18px 30px 16px;
-    box-shadow:6px 6px 0 var(--shadow-color);
-    transform:rotate(-2deg);
+    border-radius:16px;
+    padding:16px 28px 14px;
     margin-top:18px;
   }
   .logo-badge .line1{
@@ -152,10 +138,9 @@
     align-items:center;
     gap:10px;
     background:var(--card);
-    border:2.5px solid var(--line);
+    border:1.5px solid var(--line);
     border-radius:12px;
     padding:12px 16px;
-    box-shadow:4px 4px 0 var(--shadow-color);
   }
   .search-box svg{ flex:none; color:var(--ink-soft); }
   .search-box input{
@@ -190,9 +175,9 @@
   }
   .section-title .rule{
     flex:1;
-    height:3px;
-    background:repeating-linear-gradient(90deg, var(--line) 0 8px, transparent 8px 14px);
-    opacity:0.5;
+    height:1.5px;
+    background:var(--line);
+    opacity:0.18;
   }
   .section-title span.count{
     font-family:'Space Mono', monospace;
@@ -213,25 +198,64 @@
     align-items:flex-start;
     gap:10px;
     background:var(--card);
-    border:2.5px solid var(--line);
+    border:1.5px solid var(--line);
     border-radius:14px;
     padding:16px;
-    box-shadow:4px 4px 0 var(--shadow-color);
-    transition:transform .15s ease, box-shadow .15s ease;
+    transition:transform .15s ease, border-color .15s ease;
   }
   .card:hover, .card:focus-visible{
-    transform:translate(-2px,-2px);
-    box-shadow:6px 6px 0 var(--shadow-color);
+    transform:translateY(-3px);
+    border-color:var(--rust);
   }
-  .card:active{
-    transform:translate(1px,1px);
-    box-shadow:2px 2px 0 var(--shadow-color);
+
+  .card[data-desc]::after{
+    content:attr(data-desc);
+    position:absolute;
+    left:50%;
+    bottom:calc(100% + 10px);
+    transform:translateX(-50%) translateY(4px);
+    background:var(--ink);
+    color:var(--bg);
+    font-family:'Space Grotesk', sans-serif;
+    font-size:11.5px;
+    line-height:1.35;
+    font-weight:500;
+    padding:8px 11px;
+    border-radius:8px;
+    width:max-content;
+    max-width:190px;
+    text-align:left;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .15s ease, transform .15s ease;
+    z-index:5;
+  }
+  .card[data-desc]::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:calc(100% + 4px);
+    transform:translateX(-50%);
+    border:6px solid transparent;
+    border-top-color:var(--ink);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .15s ease;
+    z-index:5;
+  }
+  .card[data-desc]:hover::after,
+  .card[data-desc]:hover::before,
+  .card[data-desc]:focus-visible::after,
+  .card[data-desc]:focus-visible::before{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(-50%) translateY(0);
   }
 
   .icon{
     width:42px; height:42px;
     border-radius:10px;
-    border:2px solid var(--line);
     display:flex; align-items:center; justify-content:center;
     background:var(--mustard);
     color:var(--ink);
@@ -285,13 +309,8 @@
   </div>
 
   <div class="hero">
-    <svg class="sunburst" viewBox="0 0 200 200" aria-hidden="true">
-      <g fill="none" stroke="var(--mustard)" stroke-width="2">
-        <g id="rays"></g>
-      </g>
-    </svg>
     <div class="logo-badge">
-      <span class="line1">ALL IN ONE</span>
+      <span class="line1">COLLEGE HUB</span>
       <span class="line2">Student Edition</span>
     </div>
     <p class="tagline">Every college portal and tool, one tap away.</p>
@@ -314,43 +333,43 @@
       </div>
       <div class="grid">
 
-        <a class="card" data-name="sraap" href="https://sraap.in/slogin.php" target="_blank" rel="noopener">
+        <a class="card" data-name="sraap" data-desc="Attendance & academic records portal" href="https://sraap.in/slogin.php" target="_blank" rel="noopener">
           <span class="icon"><img src="./images/sru_logo.png" alt=""></span>
           <span class="card-name">Sraap</span>
           <span class="card-url">sraap.in</span>
         </a>
 
-        <a class="card" data-name="sruniv" href="https://sruniv.com/" target="_blank" rel="noopener">
+        <a class="card" data-name="sruniv" data-desc="University home portal" href="https://sruniv.com/" target="_blank" rel="noopener">
           <span class="icon"><img src="./images/sru_logo.png" alt=""></span>
           <span class="card-name">Sruniv</span>
           <span class="card-url">sruniv.com</span>
         </a>
 
-        <a class="card" data-name="canvas" href="https://canvas.instructure.com/login/canvas" target="_blank" rel="noopener">
+        <a class="card" data-name="canvas" data-desc="Course materials, assignments & grades" href="https://canvas.instructure.com/login/canvas" target="_blank" rel="noopener">
           <span class="icon"><img src="./images/canvas logo.jpg" alt=""></span>
           <span class="card-name">Canvas</span>
           <span class="card-url">canvas.instructure.com</span>
         </a>
 
-        <a class="card" data-name="gdb onlinegdb classroom" href="https://www.onlinegdb.com/classroom" target="_blank" rel="noopener">
+        <a class="card" data-name="gdb onlinegdb classroom" data-desc="Online IDE for coding assignments" href="https://www.onlinegdb.com/classroom" target="_blank" rel="noopener">
           <span class="icon"><img src="./images/gdb logo.jpg" alt=""></span>
           <span class="card-name">GDB</span>
           <span class="card-url">onlinegdb.com</span>
         </a>
 
-        <a class="card" data-name="webminal" href="https://webminal.org/" target="_blank" rel="noopener">
+        <a class="card" data-name="webminal" data-desc="Linux terminal practice sandbox" href="https://webminal.org/" target="_blank" rel="noopener">
           <span class="icon">W</span>
           <span class="card-name">Webminal</span>
           <span class="card-url">webminal.org</span>
         </a>
 
-        <a class="card" data-name="timetable" href="https://timetable.sruniv.com/batchReport" target="_blank" rel="noopener">
+        <a class="card" data-name="timetable" data-desc="Class schedule by batch" href="https://timetable.sruniv.com/batchReport" target="_blank" rel="noopener">
           <span class="icon"><img src="./images/sru_logo.png" alt=""></span>
           <span class="card-name">Timetable</span>
           <span class="card-url">timetable.sruniv.com</span>
         </a>
 
-        <a class="card" data-name="google classroom" href="https://classroom.google.com/u/1/h" target="_blank" rel="noopener">
+        <a class="card" data-name="google classroom" data-desc="Assignments & class announcements" href="https://classroom.google.com/u/1/h" target="_blank" rel="noopener">
           <span class="icon">GC</span>
           <span class="card-name">Classroom</span>
           <span class="card-url">classroom.google.com</span>
@@ -367,13 +386,13 @@
       </div>
       <div class="grid">
 
-        <a class="card" data-name="timetable cleaner" href="https://clean-timetable.lovable.app/" target="_blank" rel="noopener">
+        <a class="card" data-name="timetable clear" data-desc="Cleaner view of your class timetable" href="https://clean-timetable.lovable.app/" target="_blank" rel="noopener">
           <span class="icon">TT</span>
-          <span class="card-name">Timetable Cleaner</span>
+          <span class="card-name">Timetable Clear</span>
           <span class="card-url">clean-timetable.lovable.app</span>
         </a>
 
-        <a class="card" data-name="empty classroom check" href="https://empty-class-rooms.vercel.app/" target="_blank" rel="noopener">
+        <a class="card" data-name="empty classroom check" data-desc="Find free classrooms right now" href="https://empty-class-rooms.vercel.app/" target="_blank" rel="noopener">
           <span class="icon">EC</span>
           <span class="card-name">Empty Classroom</span>
           <span class="card-url">empty-class-rooms.vercel.app</span>
@@ -384,21 +403,9 @@
 
   </main>
 
-  <footer>All In One — built for quick logins</footer>
+  <footer>College Hub — built for quick logins</footer>
 
   <script>
-    // draw sunburst rays
-    const raysGroup = document.getElementById('rays');
-    const cx = 100, cy = 100, rInner = 46, rOuter = 96, count = 20;
-    let rayPaths = '';
-    for (let i = 0; i < count; i++) {
-      const a = (i / count) * Math.PI * 2;
-      const x1 = cx + rInner * Math.cos(a), y1 = cy + rInner * Math.sin(a);
-      const x2 = cx + rOuter * Math.cos(a), y2 = cy + rOuter * Math.sin(a);
-      rayPaths += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
-    }
-    raysGroup.innerHTML = rayPaths;
-
     // theme toggle
     const root = document.documentElement;
     const toggle = document.getElementById('themeToggle');
@@ -409,11 +416,11 @@
       root.setAttribute('data-theme', theme);
       icon.textContent = theme === 'dark' ? '☾' : '☀';
       label.textContent = theme === 'dark' ? 'Dark' : 'Light';
-      try { localStorage.setItem('aio-theme', theme); } catch(e) {}
+      try { localStorage.setItem('college-hub-theme', theme); } catch(e) {}
     }
 
     let saved = 'light';
-    try { saved = localStorage.getItem('aio-theme') || 'light'; } catch(e) {}
+    try { saved = localStorage.getItem('college-hub-theme') || 'light'; } catch(e) {}
     applyTheme(saved);
 
     toggle.addEventListener('click', () => {
