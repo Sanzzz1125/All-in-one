@@ -11,6 +11,7 @@ A single page with quick shortcuts to every college portal and tool, so you're n
 - Search bar to filter shortcuts by name
 - Hover a card to see a short description of what it's for
 - Light / dark theme toggle (remembers your choice)
+- "Suggest a link / feedback" button that opens a Google Form
 - Fully mobile responsive
 
 ## Structure
